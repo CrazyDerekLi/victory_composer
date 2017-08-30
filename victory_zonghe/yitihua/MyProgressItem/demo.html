@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.min.js"></script>
+    <link rel="stylesheet" href="MyProgressItem.css"/>
+    <script src="MyProgressItem.js"></script>
+    <script>
+
+        var progress;
+        $(function(){
+            progress = new $.MyProgressItem({
+                id:"pro",
+                value:2205,
+                bgValue:250,
+                progressBgColor:'#ddd',
+                progressColor:'#7bc9ea'
+            });
+
+
+
+            var data = [
+                {value1:12000,valueBg1:5000,value1Color:"#7bc9ea",bg1Color:"#cccccc",value2:2171,valueBg2:5000,value2Color:"#b194d1",bg2Color:"#cccccc",name:'合计',align:"left",clickEvent:function(){}},
+                {value1:4562,valueBg1:4500,value1Color:"#7bc9ea",bg1Color:"#cccccc",value2:2710,valueBg2:5000,value2Color:"#b194d1",bg2Color:"#cccccc",name:'措施',align:"left",clickEvent:function(){}},
+                {value1:8900,valueBg1:9000,value1Color:"#7bc9ea",bg1Color:"#cccccc",value2:2471,valueBg2:5000,value2Color:"#b194d1",bg2Color:"#cccccc",name:'老井',align:"right"},
+                {value1:10,valueBg1:500,value1Color:"#7bc9ea",bg1Color:"#cccccc",value2:2751,valueBg2:5000,value2Color:"#b194d1",bg2Color:"#cccccc",name:'新井',align:"right"},
+                {value1:7762,valueBg1:15000,value1Color:"#7bc9ea",bg1Color:"#cccccc",value2:3271,valueBg2:5000,value2Color:"#b194d1",bg2Color:"#cccccc",name:'维护',align:"left",clickEvent:function(){}}
+            ];
+            var dataProgressList = [];
+            var table = $("#progressList").html("").addClass("progress_list");
+            var theadTr = $("<tr>");
+            var thdeadHead1 = $("<td>").html('工作量（井次）').css({width:'40%',"text-align":'center'});
+            var thdeadHead2 = $("<td>").html('作业费用（万元）').css({width:'40%',"text-align":'center'});
+            theadTr.append("<td style='width:20%;'></td>").append(thdeadHead1).append(thdeadHead2);
+            table.append(theadTr);
+            for(var i=0;i<data.length;i++){
+                var tr  = $("<tr>");
+                var a = $("<a>").html(data[i].name).addClass("progress_td_label");
+                if(data[i].clickEvent){
+                    a.data("clickEventIndex",i);
+                    a.click(function(e){
+                        var ind = $(this).data("clickEventIndex");
+                        data[ind].clickEvent(e);
+                    });
+                }
+                var td1 = $("<td>").css({"text-align":data[i].align}).html(a);
+                var div1 = $("<div>");
+                var td2 = $("<td>").append(div1);
+                var div2 = $("<div>");
+                var td3 = $("<td>").append(div2);
+                var ptd1 = new $.MyProgressItem({
+                    box:div1,
+                    value:data[i].value1,
+                    bgValue:data[i].valueBg1,
+                    progressBgColor:data[i].bg1Color,
+                    progressColor:data[i].value1Color
+                });
+                var ptd2 = new $.MyProgressItem({
+                    box:div2,
+                    value:data[i].value2,
+                    bgValue:data[i].valueBg2,
+                    progressBgColor:data[i].bg2Color,
+                    progressColor:data[i].value2Color
+                });
+                var dpo = {
+                    v1:ptd1,
+                    v2:ptd2
+                };
+                dataProgressList.push(dpo);
+                tr.append(td1).append(td2).append(td3);
+                table.append(tr);
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <table id="progressList" style="width:60%;">
+        <tr>
+            <td></td>
+            <td>工作量（井次）</td>
+            <td>作业费用（万元）</td>
+        </tr>
+        <tr></tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "MyProgressItem",
+  "version": "1.0.1",
+  "description": "油田一体化进度条样式1",
+  "main": "gulpfile.js",
+  "files": [
+    "MyProgressItem","MyProgressItemDoc"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-zip": "^4.0.0"
+  },
+  "scripts": {
+    "test": "gulp zip"
+  },
+  "author": "yx",
+  "license": "yx"
+}
