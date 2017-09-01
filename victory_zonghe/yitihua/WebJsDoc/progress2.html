@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../WebJsComposer/jquery.min.js"></script>
+    <link rel="stylesheet" href="../WebJsComposer/MyProgressTarget/MyProgressTarget.css"/>
+    <script src="../WebJsComposer/MyProgressTarget/MyProgressTarget.js"></script>
+    <style>
+        #test1,#test2,#test3,#test4{
+            position:relative;
+            width:25%;
+            float:left;
+            border-top:1px solid #ccc;
+            border-bottom:1px solid #ccc;
+            border-left:1px solid #ccc;
+            margin-left:-1px;
+        }
+        #test4{
+            border-right:1px solid #ccc;
+            margin-right:-1px;
+        }
+    </style>
+    <script>
+
+        $(function(){
+            new $.MyProgressTarget({
+                id:'test1',
+                title:"利润",
+                value:166,
+                bgValue:97,
+                targetValue:90,
+                formatterBg:function(val){
+                    return "年度目标：-"+val+"亿元";
+                },
+                formatterVal:function(val){
+                    return "进度目标：-"+val+"亿元";
+                }
+            });
+            new $.MyProgressTarget({
+                id:'test2',
+                title:"完全成本",
+                value:312,
+                bgValue:1000,
+                targetValue:900,
+                formatterBg:function(val){
+                    return "年度目标：-"+val+"亿元";
+                },
+                formatterVal:function(val){
+                    return "进度目标：-"+val+"亿元";
+                }
+            });
+            new $.MyProgressTarget({
+                id:'test3',
+                title:"原油产量",
+                value:823,
+                bgValue:3120,
+                targetValue:2090,
+                formatterBg:function(val){
+                    return "年度目标：-"+val+"亿元";
+                },
+                formatterVal:function(val){
+                    return "进度目标：-"+val+"亿元";
+                }
+            });
+            new $.MyProgressTarget({
+                id:'test4',
+                title:"天然气产量",
+                value:62,
+                bgValue:370,
+                targetValue:90,
+                formatterBg:function(val){
+                    return "年度目标：-"+val+"亿元";
+                },
+                formatterVal:function(val){
+                    return "进度目标：-"+val+"亿元";
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <div id="test4"></div>
+</body>
+</html>

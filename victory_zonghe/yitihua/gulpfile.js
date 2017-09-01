@@ -2,6 +2,6 @@ const gulp = require('gulp');
 const zip = require('gulp-zip');
  
 gulp.task('zip', function() {
-    return gulp.src(['MyProgressItem/**/*.*'])
-        .pipe(gulp.dest('MyProgressItem'));
+    return gulp.src(['WebJsComposer/**/*.*'])
+        .pipe(gulp.dest('WebJsComposer'));
 });

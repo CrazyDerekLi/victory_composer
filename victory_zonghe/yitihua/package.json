@@ -1,10 +1,10 @@
 {
-  "name": "MyProgressItem",
+  "name": "WebJsComposer",
   "version": "1.0.1",
-  "description": "油田一体化进度条样式1",
+  "description": "油田一体化Web组件样式",
   "main": "gulpfile.js",
   "files": [
-    "MyProgressItem","MyProgressItemDoc"
+    "WebJsComposer","WebJsComposer"
   ],
   "dependencies": {},
   "devDependencies": {

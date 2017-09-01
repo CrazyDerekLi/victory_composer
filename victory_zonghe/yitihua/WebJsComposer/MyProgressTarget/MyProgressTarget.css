@@ -1,0 +1,121 @@
+.progress_target_box{
+    position:relative;
+    padding:10px 0;
+}
+.progress_target_box>div{
+    margin:0 20px;
+}
+
+.progress_target_head{
+    text-align: left;
+    font-size:18px;
+    line-height:25px;
+}
+.progress_target_label1,.progress_target_label2{
+    line-height:16px;
+    font-size:12px;
+    text-align: right;
+}
+.progress_target_item{
+    position:relative;
+    height:50px;
+}
+.progress_target_bg{
+    width:0;
+    height:10px;
+    background:#ccc;
+    position:absolute;
+    left:0;
+    top:20px;
+    z-index:99;
+}
+.progress_target_value{
+    width:0;
+    height:10px;
+    background:#7ec8eb;
+    position:absolute;
+    left:0;
+    top:20px;
+    z-index:100;
+}
+.progress_target_pointer{
+    position:absolute;
+    left:0;
+    top:20px;
+    z-index:101;
+}
+.progress_target_pointer_circle{
+    height:10px;
+    width:10px;
+    margin-left:-10px;
+    margin-top:-5px;
+    border-radius: 20px;
+    border:5px solid red;
+    opacity: 0.6;
+    position:absolute;
+    left:0;
+    top:0;
+}
+.progress_target_pointer_label{
+    position:absolute;
+    top:15px;
+    left:0;
+    width:100px;
+    margin-left:-50px;
+    text-align: center;
+    color:red;
+    font-size:14px;
+    line-height:15px;
+}
+.progress_target_value_pointer{
+    height:10px;
+    width:10px;
+    margin-right:-10px;
+    margin-top:-5px;
+    border-radius: 20px;
+    border:5px solid #7ec8eb;
+    background: #fff;
+    position:absolute;
+    right:0;
+    top:0;
+    display: none;
+}
+.progress_target_value_pointer_label{
+    position:absolute;
+    left:10px;
+    top:-20px;
+    width:100px;
+    text-align: center;
+    margin-left:-50px;
+    line-height:15px;
+    font-size:14px;
+    color:#7ec8eb;
+}
+.progress_kedu_up{
+    position:absolute;
+    bottom:30px;
+    width: 0;
+    height: 0;
+    border-left-width: 6px;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-width: 6px;
+    border-right-style: solid;
+    border-right-color: transparent;
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: #ccc;
+    display: none;
+    margin-left:-6px;
+}
+.progress_line{
+    position: absolute;
+    z-index:100;
+    width:1px;
+    height:10px;
+    background:#ccc;
+    left:0;
+    bottom:-10px;
+    margin-left:-0.5px;
+    box-shadow: 0 0 20px #000;
+}

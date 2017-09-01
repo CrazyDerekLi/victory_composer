@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../WebJsComposer/MyTab/MyTab.css"/>
+    <script src="../WebJsComposer/jquery.min.js"></script>
+    <script src="../WebJsComposer/MyTab/MyTab.js"></script>
+    <script>
+
+        $(function(){
+            var data = [
+                {name:"总体情况"},
+                {name:"勘探"},
+                {name:"储量/矿权"},
+                {name:"开发"},
+                {name:"生产运行"},
+                {name:"安全环保"},
+                {name:"投资"},
+                {name:"成本"},
+                {name:"信息科技"},
+                {name:"绩效考核"}
+            ];
+            var tab = new $.MyTab({
+                id:'myTab',                 //初始化外层id（非空配置字段，其他字段都有默认值）
+                index:0,                    //初始化默认选中tab
+                scrollIndex:0,              //初始化滚动位置
+                data:data,                  //初始化数据
+                nameKey:"name",             //数据需要显示的字段
+                onClick:function(e,row){    //点击事件
+                    console.log(row);
+                },
+                step : 60                   //item宽度配置
+            });
+            //初始化可以不加data，可以之后用实例化的对象调用loadData接口
+            //data.push({name:123});
+            //tab.loadData(data);
+        })
+    </script>
+</head>
+<body>
+<div id="myTab"></div>
+
+
+</body>
+</html>

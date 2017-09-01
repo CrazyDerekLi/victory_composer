@@ -1,0 +1,74 @@
+.my_tab ul,.my_tab li{
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+.my_tab{
+    overflow: hidden;
+    position:relative;
+    height:35px;
+}
+.my_tab .scroll_box{
+    position:absolute;
+    height:35px;
+    overflow: hidden;
+}
+.my_tab ul{
+    height:35px;
+}
+.my_tab li{
+    float: left;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 16px;
+}
+.my_tab a{
+    color: #aeaeae;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    cursor: pointer;
+}
+.my_tab li{
+    background: #fff;
+    line-height: 35px;
+    color: #aeaeae;
+    text-align: center;
+    border-bottom: 1px solid #bcbcbc;
+}
+.my_tab li a:hover{
+    color: #d73b3b;
+}
+.my_tab li.choose{
+    background: #2384b7;
+    color: #fff;
+    line-height:35px;
+    text-align: center;
+    border-bottom: 1px solid #2384b7;
+}
+.my_tab .choose a,.my_tab .choose:hover a{
+    color: #fff;
+}
+.tab_left_btn{
+    position:absolute;
+    left:0;
+    background:#f8f8f8 url('img/prev.png') 0 0 no-repeat;
+    width:13px;
+    height:33px;
+    display: none;
+    cursor:pointer;
+    border:1px solid #ccc;
+    z-index:1000;
+}
+.tab_right_btn{
+    position:absolute;
+    right:0;
+    background:#f8f8f8 url('img/next.png') 0 0 no-repeat;
+    width:13px;
+    height:33px;
+    display:none;
+    cursor:pointer;
+    border:1px solid #ccc;
+    z-index:1000;
+}
