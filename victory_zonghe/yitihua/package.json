@@ -4,7 +4,8 @@
   "description": "油田一体化Web组件样式",
   "main": "gulpfile.js",
   "files": [
-    "WebJsComposer","WebJsComposer"
+    "WebJsComposer","WebJsComposer",
+    "WebJsDoc","WebJsDoc"
   ],
   "dependencies": {},
   "devDependencies": {
