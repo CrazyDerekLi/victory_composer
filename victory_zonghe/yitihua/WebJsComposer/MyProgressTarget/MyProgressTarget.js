@@ -6,6 +6,7 @@
 
         this.formatterVal = options.formatterVal||function(val){return val;};
         this.formatterBg = options.formatterBg||function(val){return val;};
+        this.formatterTarget = options.formatterTarget||function(val){return "进度目标"};
 
         this.progressColor = options.progressColor||'#7bc9ea';
         this.progressBgColor = options.progressBgColor||'#cccccc';
@@ -32,7 +33,8 @@
 
             this.progressVal = $("<div>").addClass("progress_target_value");
             this.progressBg = $("<div>").addClass("progress_target_bg");
-            this.progressTar = $('<div>').addClass("progress_target_pointer").append('<div class="progress_target_pointer_circle"></div><div class="progress_target_pointer_label">进度目标</div>');
+            this.progressTargetLabel = $('<div class="progress_target_pointer_label">').html(this.formatterTarget(this.targetValue));
+            this.progressTar = $('<div>').addClass("progress_target_pointer").append('<div class="progress_target_pointer_circle"></div>').append(this.progressTargetLabel);
             this.kedu = $('<div class="progress_kedu_up"><div class="progress_line"></div></div>');
 
             this.progressValPointer = $('<div>').addClass("progress_target_value_pointer");
@@ -62,18 +64,23 @@
         this.bgValue = bgValue;
         this.targetValue = targetValue;
 
+        _value = Math.abs(value);
+        _bgValue = Math.abs(bgValue);
+        _targetValue = Math.abs(targetValue);
+
         this.label1.html(this.formatterBg(this.bgValue));
         this.label2.html(this.formatterVal(this.value));
+        this.progressTargetLabel.html(this.formatterTarget(targetValue));
 
-        var count1 = (value*1000-value*1000%bgValue)/10/bgValue;
-        var count2 = (targetValue*1000-targetValue*1000%bgValue)/10/bgValue;
-        if(value<=bgValue){
+        var count1 = (_value*1000-_value*1000%_bgValue)/10/_bgValue;
+        var count2 = (_targetValue*1000-_targetValue*1000%_bgValue)/10/_bgValue;
+        if(_value<=_bgValue){
             this.progressBg.css({width:'100%'});
             this.kedu.hide();
         }else{
             count1 = 100;
-            count2 =(targetValue*1000-targetValue*1000%value)/10/value;
-            var bgWidth = (bgValue*1000-bgValue*1000%value)/10/value;
+            count2 =(_targetValue*1000-_targetValue*1000%_value)/10/_value;
+            var bgWidth = (_bgValue*1000-_bgValue*1000%_value)/10/_value;
             this.progressBg.css({width:bgWidth+'%'});
             this.kedu.css({left:bgWidth+"%"}).show();
         }

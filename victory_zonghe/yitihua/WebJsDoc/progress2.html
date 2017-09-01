@@ -27,14 +27,17 @@
             new $.MyProgressTarget({
                 id:'test1',
                 title:"利润",
-                value:166,
-                bgValue:97,
-                targetValue:90,
+                value:-166,
+                bgValue:-97,
+                targetValue:-90,
                 formatterBg:function(val){
-                    return "年度目标：-"+val+"亿元";
+                    return "年度目标："+val+"亿元";
                 },
                 formatterVal:function(val){
-                    return "进度目标：-"+val+"亿元";
+                    return "进度目标："+val+"亿元";
+                },
+                formatterTarget:function(val){
+                    return "进度"+val+"亿元";
                 }
             });
             new $.MyProgressTarget({
@@ -44,10 +47,10 @@
                 bgValue:1000,
                 targetValue:900,
                 formatterBg:function(val){
-                    return "年度目标：-"+val+"亿元";
+                    return "年度目标："+val+"亿元";
                 },
                 formatterVal:function(val){
-                    return "进度目标：-"+val+"亿元";
+                    return "进度目标："+val+"亿元";
                 }
             });
             new $.MyProgressTarget({
@@ -57,10 +60,10 @@
                 bgValue:3120,
                 targetValue:2090,
                 formatterBg:function(val){
-                    return "年度目标：-"+val+"亿元";
+                    return "年度目标："+val+"亿元";
                 },
                 formatterVal:function(val){
-                    return "进度目标：-"+val+"亿元";
+                    return "进度目标："+val+"亿元";
                 }
             });
             new $.MyProgressTarget({
@@ -70,10 +73,10 @@
                 bgValue:370,
                 targetValue:90,
                 formatterBg:function(val){
-                    return "年度目标：-"+val+"亿元";
+                    return "年度目标："+val+"亿元";
                 },
                 formatterVal:function(val){
-                    return "进度目标：-"+val+"亿元";
+                    return "进度目标："+val+"亿元";
                 }
             });
         });

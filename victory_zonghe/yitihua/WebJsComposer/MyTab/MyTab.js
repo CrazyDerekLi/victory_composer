@@ -14,6 +14,7 @@
         this.scrollIndex = options.scrollIndex||0;
         this.data = options.data||[];
         this.nameKey = options.dataKey||"name";
+        this.checkKey = options.checkKey||"name";
         this.clickEvent = options.onClick||function(e,row){
             //console.log(row);
         };
@@ -141,7 +142,45 @@
     };
 
     $.MyTab.prototype.chooseLi = function(index){
+        this.index = index;
         this.ul.find("li:eq("+index+")").trigger("click");
+    };
+    $.MyTab.prototype.select = function(i){
+        this.chooseLi(i);
+    };
+    $.MyTab.prototype.addTab = function(tabObj){
+        var index = -1;
+        var _this = this;
+        for(var i=0;i<this.data.length;i++){
+            if(this.data[i][this.checkKey] == tabObj[this.checkKey]){
+                index = i;
+                break;
+            }
+        }
+        if(index!=-1){
+            this.select(index);
+        }else{
+            this.data.push(tabObj);
+
+            var li = $("<li>").css({
+                width:_this.step
+            }).append($("<a>").html(tabObj[_this.nameKey]));
+            li.data("index",this.data.length-1);
+            li.click(function(e){
+                _this.ul.find("li").removeClass("choose");
+                var _index = $(this).data("index");
+                _this.go2ScrollIndex(_index);
+                $(this).addClass("choose");
+                _this.clickEvent(e,_this.data[_index]);
+            });
+            this.ul.append(li);
+
+            this.maxWidth = this.data.length*_this.step;
+            this.checkBoxWidth();
+            this.ul.css({width:this.maxWidth});
+            this.checkBoxWidth();
+            this.select(this.data.length-1);
+        }
     };
 }());
 

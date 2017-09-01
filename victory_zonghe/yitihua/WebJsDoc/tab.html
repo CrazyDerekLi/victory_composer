@@ -30,17 +30,26 @@
                 onClick:function(e,row){    //点击事件
                     console.log(row);
                 },
-                step : 60                   //item宽度配置
+                step : 90                   //item宽度配置
             });
             //初始化可以不加data，可以之后用实例化的对象调用loadData接口
             //data.push({name:123});
             //tab.loadData(data);
+            var i=0;
+            $("#doAdd").click(function(){
+                tab.addTab({
+                    name:"绩效考核"+(i++%5)
+                });
+            });
         })
     </script>
 </head>
 <body>
-<div id="myTab"></div>
+<a style="display: inline-block;width:100px;height:30px;line-height:30px;background:#236623;color:#fff;border:none;cursor:pointer;text-align: center" id="doAdd">添加tab</a>
 
+<br/>
+<br/>
+<div id="myTab"></div>
 
 </body>
 </html>
