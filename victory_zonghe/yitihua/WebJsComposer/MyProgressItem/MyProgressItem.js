@@ -1,6 +1,6 @@
 (function(){
     $.MyProgressItem = function(options){
-        this.box = options.box;
+        this.box = options.box||undefined;
         this.id = options.id||'';
         this.labelHeight = options.labelheight||20;
         this.progressHeight = options.progressHeight||10;

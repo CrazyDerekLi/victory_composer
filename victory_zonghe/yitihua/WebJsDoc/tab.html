@@ -24,9 +24,9 @@
             var tab = new $.MyTab({
                 id:'myTab',                 //初始化外层id（非空配置字段，其他字段都有默认值）
                 index:0,                    //初始化默认选中tab
-                scrollIndex:0,              //初始化滚动位置
                 data:data,                  //初始化数据
                 nameKey:"name",             //数据需要显示的字段
+                checkKey:"name",
                 onClick:function(e,row){    //点击事件
                     console.log(row);
                 },

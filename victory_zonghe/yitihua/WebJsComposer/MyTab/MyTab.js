@@ -1,6 +1,5 @@
 (function(){
     $.MyTab = function(options){
-        this.box = undefined;
         this.ul = undefined;
         this.ulBox = undefined;
         this.leftBtn = undefined;
@@ -10,6 +9,7 @@
         this.right = 0;
 
         this.id = options.id||'';
+        this.box = options.box||undefined;
         this.index = options.index||0;
         this.scrollIndex = options.scrollIndex||0;
         this.data = options.data||[];
@@ -21,10 +21,25 @@
         this.step = options.step||90;
         this.initBox();
     };
+    $.MyTab.prototype.getOptions = function(){
+        var o = {};
+        o.id = this.id;
+        o.box = this.box;
+        o.index = this.index;
+        o.data = this.data;
+        o.nameKey = this.nameKey;
+        o.checkKey = this.checkKey;
+        o.clickEvent = this.clickEvent;
+        o.step = this.step;
+        return o;
+    };
     $.MyTab.prototype.initBox = function(){
         var _this = this;
         if(this.id){
-            this.box = $("#"+this.id).addClass("my_tab").html("");
+            this.box = $("#"+this.id);
+        }
+        if(this.box){
+            this.box.addClass("my_tab").html("");
 
             $(window).resize(function(e){
                 _this.scrollIndex = _this.ulBox.scrollLeft();
@@ -145,8 +160,17 @@
         this.index = index;
         this.ul.find("li:eq("+index+")").trigger("click");
     };
-    $.MyTab.prototype.select = function(i){
-        this.chooseLi(i);
+    $.MyTab.prototype.select = function(tabObj){
+        var index = -1;
+        for(var i=0;i<this.data.length;i++){
+            if(this.data[i][this.checkKey] == tabObj[this.checkKey]){
+                index = i;
+                break;
+            }
+        }
+        if(index!=-1){
+            this.chooseLi(index);
+        }
     };
     $.MyTab.prototype.addTab = function(tabObj){
         var index = -1;
@@ -158,7 +182,7 @@
             }
         }
         if(index!=-1){
-            this.select(index);
+            this.chooseLi(index);
         }else{
             this.data.push(tabObj);
 
@@ -179,7 +203,7 @@
             this.checkBoxWidth();
             this.ul.css({width:this.maxWidth});
             this.checkBoxWidth();
-            this.select(this.data.length-1);
+            this.chooseLi(this.data.length-1);
         }
     };
 }());

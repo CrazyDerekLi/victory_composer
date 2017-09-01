@@ -1,0 +1,40 @@
+控件使用手册：
+1、引入控件所需的依赖
+    <link rel="stylesheet" href="../WebJsComposer/MyTab/MyTab.css"/>
+    <script src="../WebJsComposer/jquery.min.js"></script>
+    <script src="../WebJsComposer/MyTab/MyTab.js"></script>
+2、初始化控件：
+    var tab = new $.MyTab({
+        id:'myTab',                 //初始化外层id（非空配置字段，其他字段都有默认值）
+        index:0,                    //初始化默认选中tab
+        scrollIndex:0,              //初始化滚动位置
+        data:data,                  //初始化数据
+        nameKey:"name",             //数据需要显示的字段
+        checkKey:"name",            //验证tab唯一的key，addTab会验证这个参数来选中或添加新tab
+        onClick:function(e,row){    //点击事件
+            console.log(row);
+        },
+        step : 90                   //item宽度配置
+    });
+控件API
+    初始化参数：
+        参数名         默认值            描述
+        id             ''               用来初始化tab的dom,优先级高于box属性
+        box         undefined           可以传入jquery对象进行初始化，优先级低于id
+        index          0                默认选中项
+        data           []               初始化数据
+        nameKey      "name"             tab显示字段
+        checkKey     "name"             tab验证唯一的key
+        clickEvent  function(e,row){}   点击事件，row为data中的选中数据
+        step           90               tab单标签的宽度，单位为px
+    接口方法：
+        方法名                 参数              描述
+        getCurrentIndex        无               获取当前选中Index
+        loadData              Array             读取数据并展现tab
+        select                Object            传入选中tab数据并选中tab
+        addTab                Object            添加tab，如果Object已经在tab列表中存在，则选中tab
+        chooseLi              Number            传入index，选中对应下标的tab
+        getOptions             无               获取配置
+    接口属性：
+        属性名             描述
+        data              tab数据
