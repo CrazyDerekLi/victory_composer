@@ -1,0 +1,100 @@
+/**
+ * Created by 李鑫 on 17/9/5.
+ */
+.drag_o{
+    height:30px;
+    line-height:30px;
+    padding:0 10px;
+    font-size:12px;
+    color:#666;
+    border:1px solid #ccc;
+    margin-top:-1px;
+    background:#f8f8f8;
+    cursor:pointer;;
+}
+.drag_o_clone{
+    position:fixed;
+    left:0;
+    top:0;
+}
+.drag_move_o{
+    position:absolute;
+    left:0;
+    top:0;
+    background:#fff;
+    border:1px solid #ccc;
+    z-index: 11;
+}
+.drag_move_o.selected{
+    z-index: 12;
+    border-color:rgba(74, 144, 226, 1);
+    border-width:1px;
+}
+.drag_move_o.selected .drag_move_head{
+    display: block;
+}
+.drag_move_body{
+    position:absolute;
+    left:1px;
+    top:1px;
+    right:1px;
+    bottom:1px;
+    z-index: 9;
+    overflow: hidden;
+}
+.drag_move_head{
+    position:absolute;
+    top:-28px;
+    right:-1px;
+    left:-1px;
+    height:26px;
+    background: rgba(74, 144, 226, 1);
+    border-left:1px solid rgba(74, 144, 226, 1);
+    border-right:1px solid rgba(74, 144, 226, 1);
+    border-top:1px solid rgba(74, 144, 226, 1);
+    z-index: 9;
+    display: none;
+    font-size:12px;
+    line-height: 26px;
+    color:#fff;
+    padding-left:10px;
+}
+.drag_move_input{
+    background:none;
+    border-width:0;
+}
+.drag_move_input>.drag_move_body>.drag_move_input_box>textarea{
+    display: block;
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    border:none;
+    background: none;
+    padding:0;
+    margin:0;
+    resize: none;
+}
+.drag_move_input_box{
+    position:absolute;
+    left:1px ;
+    top:1px;
+    right:1px;
+    bottom:1px;
+    width:auto;
+    height:auto;
+}
+.body_mask{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    z-index: 1000;
+    display: none;
+}
+.dragContainer{
+    border:1px solid #ddd;
+    background: url('image/bg.png') repeat
+}

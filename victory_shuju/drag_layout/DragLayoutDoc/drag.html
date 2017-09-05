@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../DragLayoutCom/js/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../DragLayoutCom/js/jquery-easyui-1.4.5/themes/default/easyui.css">
+    <script type="text/javascript" src="../DragLayoutCom/js/jquery-easyui-1.4.5/jquery.easyui.min.js"></script>
+    <style type="text/css">
+        #dragList{
+            position:absolute;
+            left:0;
+            top:0;
+            width:200px;
+            bottom:0;
+        }
+        #dragList1,#dragList2,#dragList3,#dragList4{
+            margin-bottom: 20px;
+        }
+        #dragContainer{
+            position:absolute;;
+            left:210px;
+            right:10px;
+            top:10px;
+            bottom:100px;
+        }
+        #saveBtn{
+            background: rgba(74, 144, 226, 1);
+            color:#fff;
+            text-align: center;
+            font-size:12px;
+            height:24px;
+            line-height:24px;
+            display: inline-block;
+            padding:0 10px;
+            cursor:pointer;
+            margin:20px;
+        }
+    </style>
+    <link rel="stylesheet" href="../DragLayoutCom/js/drag/drag.css" type="text/css"/>
+    <script type="text/javascript" src="../DragLayoutCom/js/drag/drag.js"></script>
+    <script type="text/javascript">
+
+        function formatDragShow(val){
+            return val.name;
+        }
+        function formatterBody1(val){
+            if(val.link){
+                return $("<iframe>").attr("src",val.link).css({
+                    display:"block",
+                    position:"relative",
+                    border:"none",
+                    width:'100%',
+                    height:'100%'
+                });
+            }
+            return $("<div>").html(val.name+"--"+val.id);
+        }
+        function formatterBody2(val){
+            return $("<img>").attr("src",val.url).css({
+                width:20,
+                height:20,
+                display:"block"
+            });
+        }
+        var data1 = [
+            {
+                id:1,
+                name:"iframe",
+                url:"image/move_btn.png",
+                link:"http://10.68.7.183/views/Superstore/Overview?:embed=y&:showShareOptions=true&:display_count=no&:showVizHome=no#1"
+                //link:"../selection/index.html"
+            }
+        ];
+
+        var data2 = [
+            {id:2,name:"img",url:"image/move_btn.png"}
+        ];
+
+        var data3 = [
+            {id:1,name:"text1"}
+        ];
+
+        var data4 = [
+            {id:1,name:"div"}
+        ];
+        $(function(){
+            var i, o,options,dragObj;
+            var saveData = localStorage.getItem("data");
+            if(saveData){
+                saveData = JSON.parse(saveData);
+            }
+
+            $.DragUtil.loadSaveData(saveData);
+            $.DragUtil.getContainer = function(){
+                return $("#dragContainer");
+            };
+            //可以自定义类型，new的时候dataType需要与之对应
+            $.DragUtil.typeList.iframe.body = formatterBody1;
+            $.DragUtil.typeList.img.body = formatterBody2;
+
+
+
+            for(i=0;i<data1.length;i++){
+                o = data1[i];
+                options = {
+                    data:o,
+                    formatter:formatDragShow,
+                    dragType:"iframe"
+                };
+                dragObj = new $.DragO(options);
+                $("#dragList1").append(dragObj.box);
+            }
+
+            for(i=0;i<data2.length;i++){
+                o = data2[i];
+                options = {
+                    data:o,
+                    formatter:formatDragShow,
+                    dragType:"img"
+                };
+                dragObj = new $.DragO(options);
+                $("#dragList2").append(dragObj.box);
+            }
+            for(i=0;i<data3.length;i++){
+                o = data3[i];
+                options = {
+                    data:o,
+                    formatter:formatDragShow,
+                    dragType:"text"
+                };
+                dragObj = new $.DragO(options);
+                $("#dragList3").append(dragObj.box);
+            }
+            for(i=0;i<data4.length;i++){
+                o = data4[i];
+                options = {
+                    data:o,
+                    formatter:formatDragShow,
+                    dragType:"div"
+                };
+                dragObj = new $.DragO(options);
+                $("#dragList4").append(dragObj.box);
+            }
+            $("#saveBtn").click(function(){
+                var sdata = $.DragUtil.saveAll($("#dragContainer"));
+                localStorage.setItem("data",JSON.stringify(sdata));
+            });
+
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <div id="dragList">
+        iframe
+        <div id="dragList1"></div>
+        img
+        <div id="dragList2"></div>
+        text
+        <div id="dragList3"></div>
+        div
+        <div id="dragList4"></div>
+        <a id="saveBtn">保存</a>
+    </div>
+    <div id="dragContainer" class="dragContainer">
+
+    </div>
+</body>
+</html>

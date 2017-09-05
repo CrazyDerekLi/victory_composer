@@ -1,0 +1,20 @@
+{
+  "name": "DragLayoutCom",
+  "version": "1.0.1",
+  "description": "数据拖拽布局组件",
+  "main": "gulpfile.js",
+  "files": [
+    "DragLayoutCom","DragLayoutCom",
+    "DragLayoutDoc","DragLayoutDoc"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-zip": "^4.0.0"
+  },
+  "scripts": {
+    "test": "gulp zip"
+  },
+  "author": "yx",
+  "license": "yx"
+}

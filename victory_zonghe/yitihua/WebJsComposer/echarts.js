@@ -18895,7 +18895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this._y = y;
 
 	                draggingTarget.drift(dx, dy, e);
-	                this.dispatchToElement(param(draggingTarget, e), 'drag', e.event);
+	                this.dispatchToElement(param(draggingTarget, e), 'DragLayoutCom', e.event);
 
 	                var dropTarget = this.findHover(x, y, draggingTarget).target;
 	                var lastDropTarget = this._dropTarget;
@@ -38893,7 +38893,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            // 但是animate中，按下鼠标，animate结束后（silent设回为false）松开鼠标，
 	            // 还是会触发click，期望是不触发。
 
-	            // Mousedown occurs when drag start, and mouseup occurs when drag end,
+	            // Mousedown occurs when DragLayoutCom start, and mouseup occurs when DragLayoutCom end,
 	            // click event should not be triggered in that case.
 
 	            containerGroup.on('mousedown', function (e) {
@@ -42092,10 +42092,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            data.eachItemGraphicEl(function (el, idx) {
 	                var itemModel = data.getItemModel(idx);
 	                // Update draggable
-	                el.off('drag').off('dragend');
+	                el.off('DragLayoutCom').off('dragend');
 	                var draggable = data.getItemModel(idx).get('draggable');
 	                if (draggable) {
-	                    el.on('drag', function () {
+	                    el.on('DragLayoutCom', function () {
 	                        if (forceLayout) {
 	                            forceLayout.warmUp();
 	                            !this._layouting
@@ -46263,8 +46263,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                ];
 	            });
 
-	            // If realtime is true, action is not dispatched on drag end, because
-	            // the drag end emits the same params with the last drag move event,
+	            // If realtime is true, action is not dispatched on DragLayoutCom end, because
+	            // the DragLayoutCom end emits the same params with the last DragLayoutCom move event,
 	            // and may have some delay when using touch pad.
 	            if (!axisModel.option.realtime === opt.isEnd || opt.removeOnClick) { // jshint ignore:line
 	                this.api.dispatchAction({
@@ -47096,7 +47096,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            && thisBrushOption.brushMode === 'single'
 	            && thisBrushOption.removeOnClick
 	        ) {
-	            // Help user to remove covers easily, only by a tiny drag, in 'single' mode.
+	            // Help user to remove covers easily, only by a tiny DragLayoutCom, in 'single' mode.
 	            // But a single click do not clear covers, because user may have casual
 	            // clicks (for example, click on other component and do not expect covers
 	            // disappear).
@@ -50474,7 +50474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var trailLength = seriesModel.get('effect.trailLength');
 
 	            var zr = api.getZr();
-	            // Avoid the drag cause ghost shadow
+	            // Avoid the DragLayoutCom cause ghost shadow
 	            // FIXME Better way ?
 	            zr.painter.getLayer(zlevel).clear(true);
 	            // Config layer with motion blur
@@ -54609,7 +54609,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var value = this._axisPointerModel.get('value');
 	            // Consider snap or categroy axis, handle may be not consistent with
 	            // axisPointer. So move handle to align the exact value position when
-	            // drag ended.
+	            // DragLayoutCom ended.
 	            this._moveHandleToValue(value);
 
 	            // For the effect: tooltip will be shown when finger holding on handle
@@ -62214,8 +62214,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            this.model.brushTargetManager.setOutputRanges(areas, this.ecModel);
 
-	            // Action is not dispatched on drag end, because the drag end
-	            // emits the same params with the last drag move event, and
+	            // Action is not dispatched on DragLayoutCom end, because the DragLayoutCom end
+	            // emits the same params with the last DragLayoutCom move event, and
 	            // may have some delay when using touch pad, which makes
 	            // animation not smooth (when using debounce).
 	            (!opt.isEnd || opt.removeOnClick) && this.api.dispatchAction({
@@ -71835,7 +71835,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            };
 
-	            // Reuse when exists, for animation and drag.
+	            // Reuse when exists, for animation and DragLayoutCom.
 	            this._currentPointer = giveSymbol(
 	                pointerModel, pointerModel, this._mainGroup, {}, this._currentPointer, callback
 	            );
