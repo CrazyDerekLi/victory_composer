@@ -230,6 +230,15 @@
                     _p.h = h;
                     _p.x = x;
                     _p.y = y;
+                    var container = $.DragUtil.getContainer();
+                    var maxX = container.width();
+                    var maxY = container.height();
+                    _p.x = x<0?0:x>maxX?maxX-28:x;
+                    _p.y = y<0?0:y>maxY?maxY-28:y;
+                    $(this).css({
+                        left:_p.x,
+                        top:_p.y
+                    });
                     $(this).data("position",_p);
 
                 }
@@ -261,12 +270,28 @@
         }
         this.box.data("obj",this);
     };
-    $.DragMoveO.prototype.resizeAndMove = function(){
+    $.DragMoveO.prototype.resizeAndMove = function(setting){
+        var x = this.x;
+        var y = this.y;
+        var w = this.w;
+        var h = this.h;
+        if(setting){
+            x = setting.x==undefined?x:setting.x;
+            y = setting.y==undefined?y:setting.y;
+            w = setting.w==undefined?w:setting.w;
+            h = setting.h==undefined?h:setting.h;
+        }
+        this.box.data("position",{
+            x:x,
+            y:y,
+            w:w,
+            h:h
+        });
         this.box.css({
-            left:this.x,
-            top:this.y,
-            width:this.w,
-            height:this.h
+            left:x,
+            top:y,
+            width:w,
+            height:h
         });
     };
     $.DragMoveO.prototype.destroyAll = function(){
