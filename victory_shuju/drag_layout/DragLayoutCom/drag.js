@@ -202,8 +202,11 @@
                     var x = $(this).position().left;
                     var y = $(this).position().top;
                     var _p = $(this).data("position");
-                    _p.x = x<0?0:x;
-                    _p.y = y<0?0:y;
+                    var container = $.DragUtil.getContainer();
+                    var maxX = container.width();
+                    var maxY = container.height();
+                    _p.x = x<0?0:x>maxX?maxX-28:x;
+                    _p.y = y<0?0:y>maxY?maxY-28:y;
                     $(this).css({
                         left:_p.x,
                         top:_p.y

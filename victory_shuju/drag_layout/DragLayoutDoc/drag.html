@@ -118,6 +118,8 @@
 
             $.DragUtil.beforeInit = function(options){
                 if(options.dragType == "img"){
+                    options.w = 1000;
+                    options.h = 400;
                     options.data.url = "image/bg.png";
                     var container = $.DragUtil.getContainer();
                     var dragMoveO = new $.DragMoveO(options);
