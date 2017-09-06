@@ -46,7 +46,6 @@
         }
     };
     $.DragUtil.beforeInit = function(options){
-        console.log(111111);
         return true;
     };
     $.DragUtil.defaultTool = {
@@ -132,7 +131,13 @@
         this.head = $("<div>").addClass("drag_move_head").html($.DragUtil.typeList[this.dragType].head());
         this.tools = $("<div>").addClass("drag_move_tools");
         this.head.append(this.tools);
-
+        this.head.dblclick(function(){
+            _this.x = 0;
+            _this.y = 0;
+            _this.w = '100%';
+            _this.h = '100%';
+            _this.resizeAndMove();
+        });
         var _o = $.DragUtil.defaultTool;
         var _btn = $("<a>").addClass("drag_tool").addClass(_o.iconCls);
         _btn.data("clickEvent", _o);
@@ -248,6 +253,14 @@
             this.body.append($.DragUtil.typeList[this.dragType].body(this.data));
         }
         this.box.data("obj",this);
+    };
+    $.DragMoveO.prototype.resizeAndMove = function(){
+        this.box.css({
+            left:this.x,
+            top:this.y,
+            width:this.w,
+            height:this.h
+        });
     };
     $.DragMoveO.prototype.destroyAll = function(){
         this.box.remove();
