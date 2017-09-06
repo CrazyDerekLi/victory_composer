@@ -253,6 +253,9 @@
         this.box.remove();
         delete this;
     };
+    $.DragMoveO.prototype.syncUI = function(){
+        this.body.html($.DragUtil.typeList[this.dragType].body(this.data));
+    };
     $(function(){
         var start = false;
         var moveObj = undefined;

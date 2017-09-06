@@ -91,6 +91,21 @@
             };
             //可以自定义类型，new的时候dataType需要与之对应
             $.DragUtil.typeList.iframe.body = formatterBody1;
+            $.DragUtil.typeList.iframe.tools = [
+                {
+                    iconCls:"icon-cogs",
+                    clickEvent:function(e,obj){
+                        obj.data.link = "http://www.baidu.com";
+                        obj.syncUI();
+                        console.log(123);
+                    }
+                },{
+                    iconCls:"icon-edit-sign",
+                    clickEvent:function(e,obj){
+                        console.log(123);
+                    }
+                }
+            ];
             $.DragUtil.typeList.img.body = formatterBody2;
             $.DragUtil.typeList.a = {
                 body : function(){
@@ -98,20 +113,7 @@
                 },
                 head : function(){
                     return 'a';
-                },
-                tools : [
-                    {
-                        iconCls:"icon-cogs",
-                        clickEvent:function(e,obj){
-                            console.log(123);
-                        }
-                    },{
-                        iconCls:"icon-edit-sign",
-                        clickEvent:function(e,obj){
-                            console.log(123);
-                        }
-                    }
-                ]
+                }
             };
 
             $.DragUtil.beforeInit = function(options){
