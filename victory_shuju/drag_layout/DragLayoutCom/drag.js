@@ -45,6 +45,10 @@
             }
         }
     };
+    $.DragUtil.beforeInit = function(options){
+
+        return true;
+    };
     $.DragUtil.typeList = {
         div:{
             head:function(){
@@ -269,8 +273,12 @@
                         dragType:data.dragType,
                         data:data.data
                     };
-                    var dragMoveO = new $.DragMoveO(_options);
-                    container.append(dragMoveO.box);
+                    var flag = $.DragUtil.beforeInit(_options);
+                    if(flag){
+                        var dragMoveO = new $.DragMoveO(_options);
+                        container.append(dragMoveO.box);
+                    }
+
                 }
                 moveObj.html("");
             }

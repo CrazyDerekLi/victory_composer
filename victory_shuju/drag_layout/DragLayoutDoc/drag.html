@@ -100,7 +100,17 @@
             $.DragUtil.typeList.iframe.body = formatterBody1;
             $.DragUtil.typeList.img.body = formatterBody2;
 
+            $.DragUtil.beforeInit = function(options){
+                if(options.dragType == "img"){
+                    options.data.url = "image/bg.png";
+                    var container = this.getContainer();
+                    var dragMoveO = new $.DragMoveO(options);
+                    container.append(dragMoveO.box);
+                    return false;
+                }
 
+                return true;
+            };
 
             for(i=0;i<data1.length;i++){
                 o = data1[i];
