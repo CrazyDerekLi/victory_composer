@@ -46,8 +46,14 @@
         }
     };
     $.DragUtil.beforeInit = function(options){
-
+        console.log(111111);
         return true;
+    };
+    $.DragUtil.defaultTool = {
+        iconCls:'destroy_btn',
+        clickEvent:function(e,obj){
+            obj.destroyAll();
+        }
     };
     $.DragUtil.typeList = {
         div:{
@@ -124,6 +130,31 @@
         this.data = options.data||{};
         this.body = $("<div>").addClass("drag_move_body");
         this.head = $("<div>").addClass("drag_move_head").html($.DragUtil.typeList[this.dragType].head());
+        this.tools = $("<div>").addClass("drag_move_tools");
+        this.head.append(this.tools);
+
+        var _o = $.DragUtil.defaultTool;
+        var _btn = $("<a>").addClass("drag_tool").addClass(_o.iconCls);
+        _btn.data("clickEvent", _o);
+        _btn.click(function(e){
+            $(this).data("clickEvent").clickEvent(e,$(this).parents(".drag_move_o").first().data("obj"));
+        });
+        this.tools.append(_btn);
+
+
+        var tools = $.DragUtil.typeList[this.dragType].tools;
+        if(tools&&tools.length>0){
+            for(var i=0;i<tools.length;i++){
+                var o = tools[i];
+                var btn = $("<a>").addClass("drag_tool").addClass(o.iconCls);
+                btn.data("clickEvent", o);
+                btn.click(function(e){
+                    $(this).data("clickEvent").clickEvent(e,$(this).parents(".drag_move_o").first().data("obj"));
+                });
+                this.tools.append(btn);
+            }
+        }
+
         this.bodyMask = $("<div>").addClass("body_mask");
 
         var position = {
@@ -216,6 +247,11 @@
         }else{
             this.body.append($.DragUtil.typeList[this.dragType].body(this.data));
         }
+        this.box.data("obj",this);
+    };
+    $.DragMoveO.prototype.destroyAll = function(){
+        this.box.remove();
+        delete this;
     };
     $(function(){
         var start = false;
@@ -242,12 +278,14 @@
                 });
             }
 
-        }).mouseleave(function(e){
-            if(start&&moveObj){
-                start = false;
-                moveObj.html("");
-            }
-        }).delegate("*","mouseup",function(e){
+        })
+        //.mouseleave(function(e){
+        //    if(start&&moveObj){
+        //        start = false;
+        //        moveObj.html("");
+        //    }
+        //})
+        .delegate("*","mouseup",function(e){
             e.preventDefault();
             if(start&&moveObj){
                 start = false;

@@ -85,6 +85,46 @@
         var data4 = [
             {id:1,name:"div"}
         ];
+        (function(){
+            $.DragUtil.getContainer = function(){
+                return $("#dragContainer");
+            };
+            //可以自定义类型，new的时候dataType需要与之对应
+            $.DragUtil.typeList.iframe.body = formatterBody1;
+            $.DragUtil.typeList.img.body = formatterBody2;
+            $.DragUtil.typeList.a = {
+                body : function(){
+                    return $('<a>').html();
+                },
+                head : function(){
+                    return 'a';
+                },
+                tools : [
+                    {
+                        iconCls:"icon-cogs",
+                        clickEvent:function(e,obj){
+                            console.log(123);
+                        }
+                    },{
+                        iconCls:"icon-edit-sign",
+                        clickEvent:function(e,obj){
+                            console.log(123);
+                        }
+                    }
+                ]
+            };
+
+            $.DragUtil.beforeInit = function(options){
+                if(options.dragType == "img"){
+                    options.data.url = "image/bg.png";
+                    var container = $.DragUtil.getContainer();
+                    var dragMoveO = new $.DragMoveO(options);
+                    container.append(dragMoveO.box);
+                    return false;
+                }
+                return true;
+            };
+        }());
         $(function(){
             var i, o,options,dragObj;
             var saveData = localStorage.getItem("data");
@@ -93,24 +133,7 @@
             }
 
             $.DragUtil.loadSaveData(saveData);
-            $.DragUtil.getContainer = function(){
-                return $("#dragContainer");
-            };
-            //可以自定义类型，new的时候dataType需要与之对应
-            $.DragUtil.typeList.iframe.body = formatterBody1;
-            $.DragUtil.typeList.img.body = formatterBody2;
 
-            $.DragUtil.beforeInit = function(options){
-                if(options.dragType == "img"){
-                    options.data.url = "image/bg.png";
-                    var container = this.getContainer();
-                    var dragMoveO = new $.DragMoveO(options);
-                    container.append(dragMoveO.box);
-                    return false;
-                }
-
-                return true;
-            };
 
             for(i=0;i<data1.length;i++){
                 o = data1[i];
@@ -157,7 +180,10 @@
                 var sdata = $.DragUtil.saveAll($("#dragContainer"));
                 localStorage.setItem("data",JSON.stringify(sdata));
             });
-
+            $("#singleObj").data("options",{
+                data:{},
+                dragType:'a'
+            });
         })
 
     </script>
@@ -174,6 +200,7 @@
         <div id="dragList3"></div>
         div
         <div id="dragList4"></div>
+        <a id="singleObj" class="drag_o" style="width:100px;height:100px;display: inline-block;line-height: 100px;">singleObj</a>
         <a id="saveBtn">保存</a>
     </div>
     <div id="dragContainer" class="dragContainer">
