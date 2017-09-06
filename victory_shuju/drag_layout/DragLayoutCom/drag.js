@@ -202,8 +202,12 @@
                     var x = $(this).position().left;
                     var y = $(this).position().top;
                     var _p = $(this).data("position");
-                    _p.x = x;
-                    _p.y = y;
+                    _p.x = x<0?0:x;
+                    _p.y = y<0?0:y;
+                    $(this).css({
+                        left:_p.x,
+                        top:_p.y
+                    });
                     $(this).data("position",_p);
                 }
             })
