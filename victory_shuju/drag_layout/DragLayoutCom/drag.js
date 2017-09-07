@@ -3,21 +3,62 @@
  */
 
 (function(){
+
     $.DragUtil = {
+        changeOptions : {},
+        setOptions : function(options){
+            options = options||{};
+            $.DragUtil.changeOptions = $.extend($.DragUtil.changeOptions,options);
+            this.getContainer = options.getContainer||this.getContainer;
+            this.beforeInit = options.beforeInit||this.beforeInit;
+            this.defaultTool = options.defaultTool||this.defaultTool;
+            this.defaultHead = options.defaultHead||this.defaultHead;
+            if(options.typeList){
+                for(var key in options.typeList){
+                    this.typeList[key]  = $.extend(this.typeList[key]||{},options.typeList[key]||{});
+                }
+            }
+        },
         getContainer:function(){
             return $("#dragContainer");
         }
     };
     $.DragUtil.viewData = function(container,json){
-        container.css("position","relative");
+        if(!json||!json.containerSize||!json.changeOptions)return;
+
+        container.css("position","relative").css({
+            width:json.containerSize.w,
+            height:json.containerSize.h
+        }).html("");
+        var changeOptions = json.changeOptions;
+        this.setOptions(changeOptions);
         var data = json.data;
         for(var i=0;i<data.length;i++){
-
+            this.viewSingleData(container,data[i]);
         }
+    };
+    $.DragUtil.viewSingleData = function(container,dataObj){
+        var o = $("<div>").css({
+            position:"absolute",
+            left:dataObj.position.x,
+            top:dataObj.position.y,
+            width:dataObj.position.w,
+            height:dataObj.position.h
+        });
+        var body = this.typeList[dataObj.dragType].body(dataObj.data);
+        if(dataObj.dragType == "text"){
+            body.html(dataObj.textValue);
+        }
+        o.append(body);
+        container.append(o);
     };
     $.DragUtil.saveAll = function(container){
         var result = {
-            typeList : $.DragUtil.typeList,
+            containerSize:{
+                w:container.width(),
+                h:container.height()
+            },
+            changeOptions : this.changeOptions,
             data:[]
         };
         container.find(".drag_move_o").each(function(ind,val){
@@ -61,19 +102,16 @@
             obj.destroyAll();
         }
     };
+    $.DragUtil.defaultHead = function(dragType,val){
+        return dragType;
+    };
     $.DragUtil.typeList = {
         div:{
-            head:function(){
-                return "div";
-            },
             body:function(val){
                 return $("<div>");
             }
         },
         iframe:{
-            head:function(){
-                return "iframe";
-            },
             body:function(val){
                 if(val.link){
                     return $("<iframe>").attr("src",val.link).css({
@@ -88,9 +126,6 @@
             }
         },
         img:{
-            head:function(){
-                return "img";
-            },
             body:function(val){
                 return $("<img>").attr("src",val.url).css({
                     width:20,
@@ -100,15 +135,8 @@
             }
         },
         text:{
-            head:function(){
-                return "text";
-            },
             body:function(val){
-                return $("<img>").attr("src",val.url).css({
-                    width:20,
-                    height:20,
-                    display:"block"
-                });
+                return $("<div>");
             }
         }
     };
@@ -135,8 +163,10 @@
         };
         this.data = options.data||{};
         this.body = $("<div>").addClass("drag_move_body");
-        this.head = $("<div>").addClass("drag_move_head").html($.DragUtil.typeList[this.dragType].head());
+        this.head = $("<div>").addClass("drag_move_head");
         this.tools = $("<div>").addClass("drag_move_tools");
+
+        this.head.append($.DragUtil.defaultHead(this.dragType,this.data));
         this.head.append(this.tools);
         this.head.dblclick(function(){
             _this.x = 0;

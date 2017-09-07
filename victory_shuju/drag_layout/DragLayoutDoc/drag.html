@@ -23,7 +23,7 @@
             left:210px;
             right:10px;
             top:10px;
-            bottom:100px;
+            bottom:10px;
         }
         #saveBtn{
             background: rgba(74, 144, 226, 1);
@@ -36,6 +36,35 @@
             padding:0 10px;
             cursor:pointer;
             margin:20px;
+        }
+        #dragView{
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            z-index:1000;
+            background: #fff;
+            display: none;
+        }
+        #dragViewButton{
+            position:absolute;
+            right:0;
+            height:30px;
+            background:rgba(74,144,226,1);
+            color:#fff;
+            line-height: 30px;
+            padding:0 10px;
+            cursor: pointer;
+            z-index:2;
+        }
+        #dragViewBody{
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            z-index:1;
         }
     </style>
     <link rel="stylesheet" href="../DragLayoutCom/drag.css" type="text/css"/>
@@ -86,48 +115,54 @@
             {id:1,name:"div"}
         ];
         (function(){
-            $.DragUtil.getContainer = function(){
-                return $("#dragContainer");
-            };
-            //可以自定义类型，new的时候dataType需要与之对应
-            $.DragUtil.typeList.iframe.body = formatterBody1;
-            $.DragUtil.typeList.iframe.tools = [
-                {
-                    iconCls:"icon-cogs",
-                    clickEvent:function(e,obj){
-                        obj.data.link = "http://www.baidu.com";
-                        obj.syncUI();
-                        console.log(123);
-                    }
-                },{
-                    iconCls:"icon-edit-sign",
-                    clickEvent:function(e,obj){
-                        console.log(123);
-                    }
-                }
-            ];
-            $.DragUtil.typeList.img.body = formatterBody2;
-            $.DragUtil.typeList.a = {
-                body : function(){
-                    return $('<a>').html();
+            $.DragUtil.setOptions({
+                getContainer : function(){
+                    return $("#dragContainer");
                 },
-                head : function(){
-                    return 'a';
+                typeList:{
+                    iframe:{
+                        body:formatterBody1,
+                        tools:[
+                            {
+                                iconCls:"icon-cogs",
+                                clickEvent:function(e,obj){
+                                    obj.data.link = "http://www.baidu.com";
+                                    obj.syncUI();
+                                    console.log(123);
+                                }
+                            },{
+                                iconCls:"icon-edit-sign",
+                                clickEvent:function(e,obj){
+                                    console.log(123);
+                                }
+                            }
+                        ]
+                    },
+                    img:{
+                        body:formatterBody2
+                    },
+                    a: {
+                        body : function(){
+                            return $('<a>').html();
+                        },
+                        head : function(){
+                            return 'a';
+                        }
+                    }
+                },
+                beforeInit : function(options){
+                    if(options.dragType == "img"){
+                        options.w = 1000;
+                        options.h = 400;
+                        options.data.url = "image/bg.png";
+                        var container = $.DragUtil.getContainer();
+                        var dragMoveO = new $.DragMoveO(options);
+                        container.append(dragMoveO.box);
+                        return false;
+                    }
+                    return true;
                 }
-            };
-
-            $.DragUtil.beforeInit = function(options){
-                if(options.dragType == "img"){
-                    options.w = 1000;
-                    options.h = 400;
-                    options.data.url = "image/bg.png";
-                    var container = $.DragUtil.getContainer();
-                    var dragMoveO = new $.DragMoveO(options);
-                    container.append(dragMoveO.box);
-                    return false;
-                }
-                return true;
-            };
+            });
         }());
         $(function(){
             var i, o,options,dragObj;
@@ -137,7 +172,8 @@
             }
 
             $.DragUtil.loadSaveData(saveData);
-
+            $.DragUtil.viewData($("#dragViewBody"),saveData);
+            $("#dragView").show();
 
             for(i=0;i<data1.length;i++){
                 o = data1[i];
@@ -183,10 +219,16 @@
             $("#saveBtn").click(function(){
                 var sdata = $.DragUtil.saveAll($("#dragContainer"));
                 localStorage.setItem("data",JSON.stringify(sdata));
+                $.DragUtil.viewData($("#dragViewBody"),sdata);
+                $("#dragView").show();
             });
+
             $("#singleObj").data("options",{
                 data:{},
                 dragType:'a'
+            });
+            $("#dragViewButton").click(function(){
+                $("#dragView").hide();
             });
         })
 
@@ -209,6 +251,10 @@
     </div>
     <div id="dragContainer" class="dragContainer">
 
+    </div>
+    <div id="dragView">
+        <a id="dragViewButton">关闭</a>
+        <div id="dragViewBody"></div>
     </div>
 </body>
 </html>
