@@ -8,9 +8,16 @@
             return $("#dragContainer");
         }
     };
+    $.DragUtil.viewData = function(container,json){
+        container.css("position","relative");
+        var data = json.data;
+        for(var i=0;i<data.length;i++){
+
+        }
+    };
     $.DragUtil.saveAll = function(container){
         var result = {
-            //typeList : $.DragUtil.typeList,
+            typeList : $.DragUtil.typeList,
             data:[]
         };
         container.find(".drag_move_o").each(function(ind,val){
