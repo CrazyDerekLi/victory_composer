@@ -122,21 +122,21 @@
                 typeList:{
                     iframe:{
                         body:formatterBody1,
-                        tools:[
-                            {
+                        tools:{
+                            bt1:{
                                 iconCls:"icon-cogs",
                                 clickEvent:function(e,obj){
-                                    obj.data.link = "http://www.baidu.com";
+                                    obj.data.link = "icons.html";
                                     obj.syncUI();
-                                    console.log(123);
                                 }
-                            },{
+                            },
+                            bt2:{
                                 iconCls:"icon-edit-sign",
                                 clickEvent:function(e,obj){
                                     console.log(123);
                                 }
                             }
-                        ]
+                        }
                     },
                     img:{
                         body:formatterBody2

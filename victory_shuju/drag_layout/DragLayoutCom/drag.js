@@ -15,7 +15,20 @@
             this.defaultHead = options.defaultHead||this.defaultHead;
             if(options.typeList){
                 for(var key in options.typeList){
-                    this.typeList[key]  = $.extend(this.typeList[key]||{},options.typeList[key]||{});
+                    var typeObj = options.typeList[key];
+                    this.typeList[key] = this.typeList[key]||{};
+                    for(var _k in typeObj){
+                        if(_k == "tools"){
+                            var _toolObj = typeObj[_k];
+                            this.typeList[key][_k] = this.typeList[key][_k]||{};
+                            for(var _kk in _toolObj){
+                                this.typeList[key][_k][_kk] = this.typeList[key][_k][_kk]||{};
+                                this.typeList[key][_k][_kk] = $.extend(this.typeList[key][_k][_kk],_toolObj[_kk]);
+                            }
+                        }else{
+                            this.typeList[key][_k] = typeObj[_k];
+                        }
+                    }
                 }
             }
         },
@@ -185,9 +198,9 @@
 
 
         var tools = $.DragUtil.typeList[this.dragType].tools;
-        if(tools&&tools.length>0){
-            for(var i=0;i<tools.length;i++){
-                var o = tools[i];
+        if(tools){
+            for(var key in tools){
+                var o = tools[key];
                 var btn = $("<a>").addClass("drag_tool").addClass(o.iconCls);
                 btn.data("clickEvent", o);
                 btn.click(function(e){
@@ -388,14 +401,18 @@
                     &&e.pageY<=containerArea.yEnd
                 ){
                     var data = moveObj.data("data");
+                    var _d = {};
                     var _options = {
                         x: e.pageX - containerArea.xStart,
                         y: e.pageY - containerArea.yStart,
                         w: 100,
                         h: 100,
-                        dragType:data.dragType,
-                        data:data.data
+                        dragType:data.dragType
                     };
+                    if(data.data){
+                        _d = $.extend({},data.data);
+                    }
+                    _options.data = _d;
                     var flag = $.DragUtil.beforeInit(_options);
                     if(flag){
                         var dragMoveO = new $.DragMoveO(_options);
