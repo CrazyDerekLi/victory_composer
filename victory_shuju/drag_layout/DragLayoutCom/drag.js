@@ -11,6 +11,7 @@
             $.DragUtil.changeOptions = $.extend($.DragUtil.changeOptions,options);
             this.getContainer = options.getContainer||this.getContainer;
             this.beforeInit = options.beforeInit||this.beforeInit;
+            this.afterInit = options.afterInit||this.afterInit;
             this.defaultTool = options.defaultTool||this.defaultTool;
             this.defaultHead = options.defaultHead||this.defaultHead;
             if(options.typeList){
@@ -108,6 +109,9 @@
     };
     $.DragUtil.beforeInit = function(options){
         return true;
+    };
+    $.DragUtil.afterInit = function(obj){
+        conosle.log(obj);
     };
     $.DragUtil.defaultTool = {
         iconCls:'destroy_btn',
@@ -316,6 +320,7 @@
             this.body.append(this.inputBox);
             this.inputBox.append(this.input);
         }else{
+            console.log($.DragUtil.typeList[this.dragType].body(this.data));
             this.body.append($.DragUtil.typeList[this.dragType].body(this.data));
         }
         this.box.data("obj",this);
@@ -417,6 +422,7 @@
                     if(flag){
                         var dragMoveO = new $.DragMoveO(_options);
                         container.append(dragMoveO.box);
+                        $.DragUtil.afterInit(dragMoveO);
                     }
 
                 }

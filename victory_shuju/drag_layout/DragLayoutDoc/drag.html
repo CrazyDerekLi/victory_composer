@@ -66,6 +66,7 @@
             bottom:0;
             z-index:1;
         }
+
     </style>
     <link rel="stylesheet" href="../DragLayoutCom/drag.css" type="text/css"/>
     <script type="text/javascript" src="../DragLayoutCom/drag.js"></script>
@@ -142,8 +143,8 @@
                         body:formatterBody2
                     },
                     a: {
-                        body : function(){
-                            return $('<a>').html();
+                        body : function(obj){
+                            return $('<a>').attr("id","testId").html("123");
                         },
                         head : function(){
                             return 'a';
@@ -158,9 +159,16 @@
                         var container = $.DragUtil.getContainer();
                         var dragMoveO = new $.DragMoveO(options);
                         container.append(dragMoveO.box);
+                        $.DragUtil.afterInit(dragMoveO);
                         return false;
                     }
                     return true;
+                },
+                afterInit : function(obj){
+                    if(obj.dragType == "a"){
+                        $("#testId").html("testa");
+                    }
+                    console.log(obj);
                 }
             });
         }());
@@ -173,7 +181,7 @@
 
             $.DragUtil.loadSaveData(saveData);
             $.DragUtil.viewData($("#dragViewBody"),saveData);
-            $("#dragView").show();
+            $("#dragView").addClass("show");
 
             for(i=0;i<data1.length;i++){
                 o = data1[i];
@@ -220,7 +228,7 @@
                 var sdata = $.DragUtil.saveAll($("#dragContainer"));
                 localStorage.setItem("data",JSON.stringify(sdata));
                 $.DragUtil.viewData($("#dragViewBody"),sdata);
-                $("#dragView").show();
+                $("#dragView").addClass("show");
             });
 
             $("#singleObj").data("options",{
@@ -228,7 +236,7 @@
                 dragType:'a'
             });
             $("#dragViewButton").click(function(){
-                $("#dragView").hide();
+                $("#dragView").removeClass("show");
             });
         })
 
