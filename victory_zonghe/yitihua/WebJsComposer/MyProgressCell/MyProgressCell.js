@@ -30,21 +30,31 @@
 
             this.box.css({
                 height:this.cellHeight+"px",
-                padding:this.yPadding+"px 0"
+                padding:this.yPadding+"px 0",
+                position:'relative',
+                width:'100%'
             });
             this.titleBox.css({
                 'line-height':this.cellHeight+"px",
                 height:this.cellHeight+"px",
                 padding:this.yPadding+"px 0",
                 width:this.leftWidth+"px",
-                'font-size':this.leftFontSize+"px"
+                'font-size':this.leftFontSize+"px",
+                position:'absolute',
+                left:0,
+                top:0,
+                'text-align': 'right'
             });
             this.contextBox.css({
                 'line-height':this.cellHeight+"px",
                 height:this.cellHeight+"px",
                 padding:this.yPadding+"px 0",
                 width:this.rightWidth+"px",
-                'font-size':this.rightFontSize+"px"
+                'font-size':this.rightFontSize+"px",
+                position:'absolute',
+                right:0,
+                top:0,
+                'text-align': 'right'
             });
             this.titleBox.html(this.title);
             this.progressCellInfoDom.css({
@@ -53,6 +63,7 @@
                 background:this.cellColor
             });
             this.progressCellDom.css({
+                position:'absolute',
                 left:this.leftWidth + this.splitWidth + "px",
                 right:this.rightWidth + this.splitWidth + "px"
             });
