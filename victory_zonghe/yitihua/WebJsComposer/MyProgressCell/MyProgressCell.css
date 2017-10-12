@@ -1,0 +1,19 @@
+.progress_cell_box{
+    position:relative;
+    width:100%;
+}
+.progress_cell_title{
+    position:absolute;
+    left:0;
+    top:0;
+    text-align: right;
+}
+.progress_cell_context{
+    position:absolute;
+    right:0;
+    top:0;
+    text-align: right;
+}
+.progress_cell_all{
+    position:absolute;
+}
